@@ -79,6 +79,124 @@
         <a href="#get-started" class="cta-button">Call to Action</a>
       </section>
 
+      <section class="quick-finder" id="service-finder">
+        <h2 class="section-title">Find Your Perfect Service</h2>
+        <div class="quiz-container">
+          <div class="quiz-step active" data-step="1">
+            <h3 class="quiz-question">What type of support do you need?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="test-prep">
+                <span class="option-icon">📚</span>
+                Test Preparation
+              </button>
+              <button class="quiz-option" data-value="essays">
+                <span class="option-icon">✍️</span>
+                Essay Writing
+              </button>
+              <button class="quiz-option" data-value="applications">
+                <span class="option-icon">📝</span>
+                College Applications
+              </button>
+              <button class="quiz-option" data-value="counseling">
+                <span class="option-icon">🎯</span>
+                General Counseling
+              </button>
+            </div>
+          </div>
+          <!-- Additional quiz can be shown dynamically -->
+        </div>
+      </section>
+
+      <section class="counselor-booking" id="book-counselor">
+        <h2 class="section-title">Book a Counselor</h2>
+        <div class="booking-container">
+          <div class="counselor-filters">
+            <select class="filter-select" id="specialization">
+              <option value="">Specialization</option>
+              <option value="test-prep">Test Prep</option>
+              <option value="essays">Essays</option>
+              <option value="applications">Applications</option>
+            </select>
+            <select class="filter-select" id="availability">
+              <option value="">Availability</option>
+              <option value="morning">Morning</option>
+              <option value="afternoon">Afternoon</option>
+              <option value="evening">Evening</option>
+            </select>
+          </div>
+          <div class="counselors-grid">
+            <!-- Counselor cards can also be populated dynamically here -->
+          </div>
+        </div>
+      </section>
+
+      <section class="resource-library" id="resources">
+        <h2 class="section-title">Resource Library</h2>
+        <div class="resources-container">
+          <div class="resource-categories">
+            <button class="category-btn active" data-category="all">
+              All Resources
+            </button>
+            <button class="category-btn" data-category="guides">Study Guides</button>
+            <button class="category-btn" data-category="templates">Templates</button>
+            <button class="category-btn" data-category="videos">
+              Video Tutorials
+            </button>
+          </div>
+          <div class="resources-grid">
+            <!-- Resource cards will be populated dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <section class="progress-dashboard" id="dashboard">
+        <h2 class="section-title">Your Progress</h2>
+        <div class="dashboard-container">
+          <div class="dashboard-header">
+            <div class="profile-summary">
+              <div class="profile-avatar">
+                <img
+                  src="https://placehold.co/100x100/06005c/ffffff?text=U"
+                  alt="Profile"
+                  class="avatar-image"
+                />
+              </div>
+              <div class="profile-info">
+                <h3 class="profile-name">Welcome back!</h3>
+                <p class="profile-status">Current Goal: College Applications</p>
+              </div>
+            </div>
+            <div class="quick-stats">
+              <div class="stat-item">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Sessions Complete</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Tasks Pending</span>
+              </div>
+            </div>
+          </div>
+          <div class="progress-tracks">
+            <div class="track-card">
+              <h4 class="track-title">Essay Writing</h4>
+              <div class="progress-bar">
+                <div class="progress" style="width: 75%"></div>
+              </div>
+              <p class="track-status">75% Complete</p>
+            </div>
+            <div class="track-card">
+              <h4 class="track-title">SAT Prep</h4>
+              <div class="progress-bar">
+                <div class="progress" style="width: 40%"></div>
+              </div>
+              <p class="track-status">40% Complete</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       <section class="features-section" id="features" aria-label="Features">
         <h2 class="section-title">What makes us different?</h2>
         <div class="features-grid">
@@ -162,6 +280,59 @@
           }
         });
       });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          // Quiz Navigation
+          const quizOptions = document.querySelectorAll(".quiz-option");
+          quizOptions.forEach((option) => {
+            option.addEventListener("click", function () {
+              const value = this.dataset.value;
+              // Handle quiz navigation and results
+              showQuizResult(value);
+            });
+          });
+
+          // Counselor Filtering
+          const filterSelects = document.querySelectorAll(".filter-select");
+          filterSelects.forEach((select) => {
+            select.addEventListener("change", filterCounselors);
+          });
+
+          // Resource Category Selection
+          const categoryBtns = document.querySelectorAll(".category-btn");
+          categoryBtns.forEach((btn) => {
+            btn.addEventListener("click", function () {
+              categoryBtns.forEach((b) => b.classList.remove("active"));
+              this.classList.add("active");
+              filterResources(this.dataset.category);
+            });
+          });
+
+          // Initialize the dashboard
+          initializeDashboard();
+        });
+
+        function showQuizResult(serviceType) {
+          // Implement quiz result logic
+          console.log("Selected service:", serviceType);
+        }
+
+        function filterCounselors() {
+          // Implement counselor filtering logic
+          console.log("Filtering counselors...");
+        }
+
+        function filterResources(category) {
+          // Implement resource filtering logic
+          console.log("Filtering resources:", category);
+        }
+
+        function initializeDashboard() {
+          // Initialize dashboard data
+          console.log("Initializing dashboard...");
+        }
     </script>
   </body>
 </html>
