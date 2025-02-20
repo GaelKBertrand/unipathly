@@ -196,6 +196,125 @@
         </div>
       </section>
 
+      <section class="real-time-features">
+        <!-- Chat Widget -->
+        <div class="chat-widget" id="chatWidget">
+          <div class="chat-header">
+            <h3>Chat with Counselors</h3>
+            <button class="minimize-btn" aria-label="Minimize chat">−</button>
+          </div>
+          <div class="chat-body">
+            <div class="chat-messages" id="chatMessages">
+              <div class="message system">
+                Welcome to Unipathly! How can we help you today?
+              </div>
+              <!-- Messages will be added dynamically -->
+            </div>
+            <div class="chat-input">
+              <input
+                type="text"
+                placeholder="Type your message..."
+                id="messageInput"
+              />
+              <button class="send-btn" aria-label="Send message">
+                <span class="send-icon">➤</span>
+              </button>
+            </div>
+          </div>
+          <div class="chat-status">
+            <span class="status-dot online"></span>
+            Counselors Online: 3
+          </div>
+        </div>
+
+        <!-- Booking Confirmation Modal -->
+        <div class="booking-modal" id="bookingModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Confirm Your Session</h3>
+              <button class="close-btn" aria-label="Close modal">×</button>
+            </div>
+            <div class="modal-body">
+              <div class="booking-details">
+                <div class="counselor-preview">
+                  <img
+                    src="https://placehold.co/60x60/06005c/ffffff?text=C"
+                    alt=""
+                    class="counselor-avatar"
+                  />
+                  <div class="counselor-info">
+                    <h4 class="counselor-name">Dr. Sarah Wilson</h4>
+                    <p class="counselor-specialty">College Applications Expert</p>
+                  </div>
+                </div>
+                <div class="session-details">
+                  <div class="detail-item">
+                    <span class="detail-label">Date:</span>
+                    <span class="detail-value">Oct 15, 2023</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Time:</span>
+                    <span class="detail-value">2:00 PM EST</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Duration:</span>
+                    <span class="detail-value">60 minutes</span>
+                  </div>
+                </div>
+              </div>
+              <button class="confirm-btn">Confirm Booking</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Progress Updates -->
+        <div class="progress-updates">
+          <div class="update-header">
+            <h3>Recent Progress</h3>
+            <div class="update-filters">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="achievements">
+                Achievements
+              </button>
+              <button class="filter-btn" data-filter="tasks">Tasks</button>
+            </div>
+          </div>
+          <div class="updates-stream">
+            <!-- Updates will be added dynamically -->
+          </div>
+        </div>
+
+        <!-- Interactive Study Tools -->
+        <div class="study-tools">
+          <h3 class="tools-header">Study Tools</h3>
+          <div class="tools-grid">
+            <div class="tool-card">
+              <div class="tool-icon">📝</div>
+              <h4 class="tool-title">Flashcards</h4>
+              <p class="tool-description">Create and study with digital flashcards</p>
+              <button class="tool-btn">Open Tool</button>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">⏱️</div>
+              <h4 class="tool-title">Study Timer</h4>
+              <p class="tool-description">Track your study sessions</p>
+              <button class="tool-btn">Start Timer</button>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">📊</div>
+              <h4 class="tool-title">Progress Tracker</h4>
+              <p class="tool-description">Monitor your improvement</p>
+              <button class="tool-btn">View Progress</button>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">📅</div>
+              <h4 class="tool-title">Study Planner</h4>
+              <p class="tool-description">Organize your study schedule</p>
+              <button class="tool-btn">Plan Now</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section class="features-section" id="features" aria-label="Features">
         <h2 class="section-title">What makes us different?</h2>
@@ -333,6 +452,138 @@
           // Initialize dashboard data
           console.log("Initializing dashboard...");
         }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          // Chat Widget Functionality
+          const chatWidget = {
+            init: function () {
+              this.messageInput = document.getElementById("messageInput");
+              this.chatMessages = document.getElementById("chatMessages");
+              this.bindEvents();
+            },
+
+            bindEvents: function () {
+              const sendBtn = document.querySelector(".send-btn");
+              sendBtn.addEventListener("click", () => this.sendMessage());
+
+              this.messageInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                  this.sendMessage();
+                }
+              });
+
+              document
+                .querySelector(".minimize-btn")
+                .addEventListener("click", () => {
+                  document.querySelector(".chat-body").classList.toggle("minimized");
+                });
+            },
+
+            sendMessage: function () {
+              const message = this.messageInput.value.trim();
+              if (message) {
+                this.addMessage(message, "user");
+                this.messageInput.value = "";
+                // Simulate counselor response
+                setTimeout(() => {
+                  this.addMessage(
+                    "Thank you for your message. A counselor will respond shortly.",
+                    "system",
+                  );
+                }, 1000);
+              }
+            },
+
+            addMessage: function (text, type) {
+              const messageDiv = document.createElement("div");
+              messageDiv.className = `message ${type}`;
+              messageDiv.textContent = text;
+              this.chatMessages.appendChild(messageDiv);
+              this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            },
+          };
+
+          // Booking Modal Functionality
+          const bookingModal = {
+            init: function () {
+              this.modal = document.getElementById("bookingModal");
+              this.bindEvents();
+            },
+
+            bindEvents: function () {
+              document.querySelector(".close-btn").addEventListener("click", () => {
+                this.modal.style.display = "none";
+              });
+
+              document.querySelector(".confirm-btn").addEventListener("click", () => {
+                this.confirmBooking();
+              });
+            },
+
+            show: function () {
+              this.modal.style.display = "flex";
+            },
+
+            confirmBooking: function () {
+              // Add booking confirmation logic here
+              this.modal.style.display = "none";
+              // Show success message
+              alert("Booking confirmed! Check your email for details.");
+            },
+          };
+
+          // Study Tools Functionality
+          const studyTools = {
+            init: function () {
+              this.bindEvents();
+            },
+
+            bindEvents: function () {
+              document.querySelectorAll(".tool-btn").forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                  const tool =
+                    e.target.parentElement.querySelector(".tool-title").textContent;
+                  this.openTool(tool);
+                });
+              });
+            },
+
+            openTool: function (toolName) {
+              // Add tool opening logic here
+              console.log(`Opening ${toolName}`);
+            },
+          };
+
+          // Initialize all features
+          chatWidget.init();
+          bookingModal.init();
+          studyTools.init();
+
+          // Simulate live updates
+          setInterval(() => {
+            const updates = document.querySelector(".updates-stream");
+            const activities = [
+              "Completed practice test",
+              "Achieved study goal",
+              "Submitted essay draft",
+              "Scheduled counseling session",
+            ];
+            const randomActivity =
+              activities[Math.floor(Math.random() * activities.length)];
+            const updateElement = document.createElement("div");
+            updateElement.className = "update-item";
+            updateElement.innerHTML = `
+                  <span class="update-time">${new Date().toLocaleTimeString()}</span>
+                  <span class="update-text">${randomActivity}</span>
+              `;
+            updates.insertBefore(updateElement, updates.firstChild);
+            if (updates.children.length > 5) {
+              updates.removeChild(updates.lastChild);
+            }
+          }, 5000);
+        });
     </script>
   </body>
 </html>
